@@ -1,6 +1,8 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [endpoint, setEndpoint] = useState("");
   const url =
     "https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr";
 
@@ -12,11 +14,24 @@ function App() {
     },
   })
     .then((response) => {
-      console.log("----->", response);
+      console.log("----->", response.json());
     })
     .catch((err) => {
       console.log(err);
     });
+
+  const onChangeHandler = (e) => {
+    setEndpoint(e.target.value);
+  };
+
+  return (
+    <section>
+      <form>
+        <input type="text" value={endpoint} onChange={onChangeHandler} />
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  );
 }
 
 export default App;
